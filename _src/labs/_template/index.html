@@ -29,8 +29,11 @@
        and paste the output
      - This is useful for adding extra figures, tables, or discussion
 
-  5. REGISTER THE LAB
-     - Add an entry to _src/labs/_registry.json so it appears on the labs page
+  5. CREATE THE LAB FOLDER
+     - IMPORTANT: Name your folder to match the lab number that graders expect.
+       Graders access: https://rss2026-[TEAM_NUMBER].github.io/website/labs/[LAB_NUMBER]
+       Example: For Lab 3, copy _template/ to lab3/  (NOT wall_follower/ or lab_three/)
+     - Add an entry to _src/labs/_registry.json with "number": "lab3"
      - Run: python3 build.py
   ============================================================
 -->
@@ -94,11 +97,9 @@
     <a href="#main-content" class="btn"><i class="fa fa-arrow-up"></i> Back to Top</a>
   </div>
   <p class="footer-info">{{TEAM_NAME}} — {{COURSE}} — {{SEMESTER}}</p>
-  <p class="credit">Built with HTML, CSS &amp; JS</p>
+  <p class="credit">Last updated {{BUILD_DATE}}</p>
 </footer>
 
-<!-- Theme Switcher -->
-{{THEME_SWITCHER}}
 
 </body>
 </html>

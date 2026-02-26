@@ -5,6 +5,7 @@
   "semester": "Spring 2026",
   "github_url": "https://github.com/rss2026-7/website2022",
   "tagline": "Innovation starts somewhere, so why not let it start here?",
+  "charter_url": "",
   "hero_image": "img/mit.jpg",
   "members": [
     {"name": "Diego Contreras", "email": "diegoctr@mit.edu", "photo": "img/diego.jpg", "bio": "Went from programming drones to programming ground robots. Somehow harder."},

@@ -16,59 +16,24 @@
 <!-- Hero Header -->
 <header class="hero" style="background-image: url('{{ROOT}}/img/mit.jpg');">
   <div class="hero-content">
-    <h1>About Us</h1>
-    <p>{{TAGLINE}}</p>
+    <h1>{{COURSE}}</h1>
+    <p>{{SEMESTER}}</p>
   </div>
 </header>
 
-<!-- Mission Statement -->
-<section class="section" id="main-content">
-  <h2 class="section-title">Our Mission</h2>
-  <p style="text-align:center; max-width:720px; margin:0 auto; font-size:1.05rem; line-height:1.8; color:var(--text-muted);">
-    We are {{TEAM_NAME}}, a group of MIT students working together in
-    {{COURSE}} ({{SEMESTER}}). Our goal is to design, build, and program
-    an autonomous racecar that can navigate real-world environments using
-    state-of-the-art perception, planning, and control algorithms.
-  </p>
-</section>
-
-<!-- Our Robot -->
-<section class="section about-section" style="background:var(--bg-alt);">
-  <h2 class="section-title">Our Robot</h2>
-  <div style="text-align:center; max-width:720px; margin:0 auto;">
-    <div style="background:var(--card-bg); border-radius:var(--radius); box-shadow:var(--shadow); padding:40px 24px; margin-bottom:24px;">
-      <i class="fa fa-car" style="font-size:3rem; color:var(--accent); margin-bottom:16px; display:block;"></i>
-      <p style="color:var(--text-muted); font-style:italic;">Photo coming after our first lab</p>
-    </div>
-    <p style="color:var(--text-muted); line-height:1.8;">
-      Our robot is a 1/10-scale autonomous racecar built on the MIT RACECAR
-      platform. Equipped with a LIDAR sensor, depth camera, and IMU, it
-      will tackle challenges from wall-following to full autonomous
-      navigation. Check back as we document our progress throughout the semester!
-    </p>
-  </div>
-</section>
-
 <!-- Meet the Team -->
-<section class="section" id="about">
+<section class="section" id="main-content">
   <h2 class="section-title">Meet the Team</h2>
   <div class="team-grid">
 {{TEAM_CARDS}}
   </div>
 </section>
 
-<!-- Course Info -->
-<section class="section" style="text-align:center;">
-  <h2 class="section-title">Course Info</h2>
-  <p style="font-size:1.1rem;"><strong>{{COURSE}}</strong></p>
-  <p style="color:var(--text-muted);">{{SEMESTER}}</p>
-</section>
+{{CHARTER_LINK}}
 
 <!-- Footer -->
 {{FOOTER}}
 
-<!-- Theme Switcher -->
-{{THEME_SWITCHER}}
 
 </body>
 </html>

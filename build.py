@@ -17,6 +17,8 @@ How to add a new team member:
 
 How to add a new lab:
     1. Copy _src/labs/_template/ to _src/labs/[LAB_NUMBER]/
+       IMPORTANT: Use the lab number (e.g. lab3, lab4) as the folder name.
+       Graders access labs at: https://rss2026-#.github.io/website/labs/[LAB_NUMBER]
     2. Edit _src/labs/[LAB_NUMBER]/index.html (follow the EDIT THIS comments)
     3. Add an entry to _src/labs/_registry.json
     4. Run: python3 build.py
@@ -25,6 +27,7 @@ How to add a new lab:
 import json
 import os
 import sys
+from datetime import datetime
 
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 PARTIALS_DIR = os.path.join(ROOT_DIR, '_partials')
@@ -36,7 +39,6 @@ REGISTRY_PATH = os.path.join(SRC_DIR, 'labs', '_registry.json')
 PAGES = [
     ('index.html', 'index.html', 0),
     ('about.html', 'about/index.html', 1),
-    ('videos.html', 'videos/index.html', 1),
     ('labs/index.html', 'labs/index.html', 1),
 ]
 
@@ -53,16 +55,25 @@ def load_partials():
     return partials
 
 
+def _load_json(path, description):
+    """Load a JSON file with helpful error messages."""
+    if not os.path.isfile(path):
+        sys.exit(f'Missing required file: {path} ({description})')
+    try:
+        with open(path, 'r') as f:
+            return json.load(f)
+    except json.JSONDecodeError as e:
+        sys.exit(f'Invalid JSON in {path}: {e}')
+
+
 def load_config():
     """Load site-wide configuration from config.json."""
-    with open(CONFIG_PATH, 'r') as f:
-        return json.load(f)
+    return _load_json(CONFIG_PATH, 'site configuration')
 
 
 def load_registry():
     """Load lab metadata from _registry.json."""
-    with open(REGISTRY_PATH, 'r') as f:
-        return json.load(f)
+    return _load_json(REGISTRY_PATH, 'lab registry')
 
 
 def root_path(depth):
@@ -121,13 +132,13 @@ def generate_latest_lab(labs, root):
     )
 
 
-def generate_lab_cards(labs):
+def generate_lab_cards(labs, root='.'):
     """Generate HTML for lab cards from registry."""
     cards = []
     for lab in labs:
         thumbnail = lab.get('thumbnail', '')
         if thumbnail:
-            img = f'<img src="{thumbnail}" alt="{lab["title"]} thumbnail">'
+            img = f'<img src="{root}/{thumbnail}" alt="{lab["title"]} thumbnail">'
         else:
             img = (f'<div class="placeholder-lab-img" '
                    f'data-lab-number="{lab["number"]}"></div>')
@@ -145,6 +156,19 @@ def generate_lab_cards(labs):
         )
         cards.append(card)
     return '\n'.join(cards)
+
+
+def generate_charter_link(config):
+    """Generate HTML for the team charter link, or empty string if URL is not set."""
+    url = config.get('charter_url', '').strip()
+    if not url:
+        return ''
+    return (
+        '<section class="section" style="text-align:center;">\n'
+        '  <a href="' + url + '" class="btn" target="_blank" rel="noopener">'
+        '<i class="fa fa-file-text"></i> Team Charter</a>\n'
+        '</section>'
+    )
 
 
 def discover_lab_pages():
@@ -166,7 +190,7 @@ def discover_lab_pages():
     return lab_pages
 
 
-def build_page(source_path, output_path, depth, partials, config, registry):
+def build_page(source_path, output_path, depth, partials, config, registry, build_date=''):
     """Build a single page from its source template."""
     src_file = os.path.join(SRC_DIR, source_path)
     out_file = os.path.join(ROOT_DIR, output_path)
@@ -188,14 +212,16 @@ def build_page(source_path, output_path, depth, partials, config, registry):
         '{{SEMESTER}}': config['semester'],
         '{{HERO_IMAGE}}': config.get('hero_image', 'img/mit.jpg'),
         '{{TAGLINE}}': config.get('tagline', ''),
+        '{{BUILD_DATE}}': build_date,
     }
     for placeholder, value in replacements.items():
         content = content.replace(placeholder, value)
 
     # Replace auto-generated content
     content = content.replace('{{TEAM_CARDS}}', generate_team_cards(config['members'], root))
-    content = content.replace('{{LAB_CARDS}}', generate_lab_cards(registry))
+    content = content.replace('{{LAB_CARDS}}', generate_lab_cards(registry, root))
     content = content.replace('{{LATEST_LAB}}', generate_latest_lab(registry, root))
+    content = content.replace('{{CHARTER_LINK}}', generate_charter_link(config))
 
     # Replace {{ROOT}} last (after partials and team cards that contain {{ROOT}})
     content = content.replace('{{ROOT}}', root)
@@ -220,7 +246,7 @@ def clean():
             os.remove(out_file)
             removed.append(output_path)
     # Clean empty directories created by build
-    for dirpath in ['about', 'videos']:
+    for dirpath in ['about']:
         d = os.path.join(ROOT_DIR, dirpath)
         if os.path.isdir(d) and not os.listdir(d):
             os.rmdir(d)
@@ -235,6 +261,7 @@ def main():
     config = load_config()
     registry = load_registry()
     lab_pages = discover_lab_pages()
+    build_date = datetime.now().strftime('%Y-%m-%d')
 
     if '--clean' in sys.argv:
         clean()
@@ -248,7 +275,7 @@ def main():
         if not os.path.exists(src_file):
             print(f'  SKIP {output_path} (source not found: _src/{source_path})')
             continue
-        build_page(source_path, output_path, depth, partials, config, registry)
+        build_page(source_path, output_path, depth, partials, config, registry, build_date)
         built.append(output_path)
 
     print(f'Built {len(built)} pages:')
