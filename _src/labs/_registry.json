@@ -10,5 +10,11 @@
     "title": "Lab 3: Wall Following",
     "description": "LiDAR-powered wall following with RANSAC line detection and an emergency braking safety controller on an autonomous racecar.",
     "thumbnail": "img/mit.jpg"
+  },
+  {
+    "number": "lab4",
+    "title": "Lab 4: Visual Servoing",
+    "description": "Camera-based visual servoing for cone parking and line following using color segmentation, SIFT, template matching, YOLO, and homography.",
+    "thumbnail": "img/mit.jpg"
   }
 ]
