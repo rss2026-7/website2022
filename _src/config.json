@@ -10,7 +10,8 @@
   "members": [
     {"name": "Diego Contreras", "email": "diegoctr@mit.edu", "photo": "img/diego.jpg", "bio": "Went from programming drones to programming ground robots. Somehow harder."},
     {"name": "Nathaniel Morgan", "email": "nmorgan@mit.edu", "photo": "img/headshot.jpeg", "bio": "Let's make self driving cars"},
-    {"name": "Team Member 3", "email": "member3@mit.edu", "photo": "", "bio": "Add your bio here"},
-    {"name": "Team Member 4", "email": "member4@mit.edu", "photo": "", "bio": "Add your bio here"}
+    {"name": "Kevin Huang", "email": "kevhuang@mit.edu", "photo": "img/kevin.jpg", "bio": "Putting intelligence on wheels"},
+    {"name": "Weiming Zhou", "email": "willy108@mit.edu", "photo": "img/weiming.jpg", "bio": "Automating"},
+    {"name": "Soe Wai Yan", "email": "waiyan@mit.edu", "photo": "img/soe.jpeg", "bio": "My First Self Driving Car"}
   ]
 }
