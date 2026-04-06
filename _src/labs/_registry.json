@@ -16,5 +16,11 @@
     "title": "Lab 4: Visual Servoing",
     "description": "Camera-based visual servoing for cone parking and line following using color segmentation, SIFT, template matching, YOLO, and homography.",
     "thumbnail": "img/mit.jpg"
+  },
+  {
+    "number": "lab5",
+    "title": "Lab 5: Localization",
+    "description": "Monte Carlo localization using particle filters for autonomous robot pose estimation.",
+    "thumbnail": "img/mit.jpg"
   }
 ]
