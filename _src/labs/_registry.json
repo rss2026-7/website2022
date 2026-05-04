@@ -28,5 +28,11 @@
     "title": "Lab 6: Path Planning",
     "description": "Path planning algorithms for autonomous navigation in structured environments.",
     "thumbnail": "img/mit.jpg"
+  },
+  {
+    "number": "lab7",
+    "title": "Lab 7",
+    "description": "Lab 7 presentation.",
+    "thumbnail": "img/mit.jpg"
   }
 ]
